@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Royal Clash Chess</title>
+    <meta
+      name="description"
+      content="A polished chess website with Human vs Human and Human vs Computer modes."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Premium chess experience</p>
+          <h1>Royal Clash</h1>
+        </div>
+        <div class="header-actions">
+          <button id="new-game-btn" class="secondary-btn">New Game</button>
+          <button id="sound-toggle-btn" class="secondary-btn sound-btn" aria-pressed="true">🔊 Sound: On</button>
+          <button id="mode-toggle-btn" class="primary-btn">User vs User</button>
+        </div>
+      </header>
+
+      <main class="game-layout">
+        <aside class="info-panel">
+          <div class="panel-card status-card">
+            <label>Game mode</label>
+            <h2 id="mode-label">User vs User</h2>
+          </div>
+
+          <div class="panel-card">
+            <label>Turn</label>
+            <div id="turn-indicator" class="turn-indicator">White to move</div>
+          </div>
+
+          <div class="panel-card">
+            <label>Game status</label>
+            <p id="status-text">Ready for battle.</p>
+          </div>
+
+          <div class="panel-card buttons-panel">
+            <button id="pvp-btn" class="mode-btn active">User vs User</button>
+            <button id="pvc-btn" class="mode-btn">User vs Computer</button>
+          </div>
+        </aside>
+
+        <section class="board-panel">
+          <div id="board" class="board" aria-label="Chess board"></div>
+        </section>
+      </main>
+    </div>
+
+    <div id="game-over-overlay" class="game-over-overlay" aria-live="assertive" aria-hidden="true">
+      <div class="game-over-card">
+        <p class="overlay-label">Game complete</p>
+        <h3 id="game-over-title">Checkmate</h3>
+        <p id="game-over-message">White wins by checkmate.</p>
+        <button id="overlay-new-game-btn" class="primary-btn overlay-btn">Play Again</button>
+      </div>
+    </div>
+
+    <script src="chess.js"></script>
+    <script>
+      window.addEventListener('load', async () => {
+        try {
+          const runtimeSource = await fetch('./script.js').then((response) => response.text());
+          eval(runtimeSource);
+        } catch (error) {
+          console.error('Game script failed to initialize:', error);
+        }
+      });
+    </script>
+  </body>
+</html>
