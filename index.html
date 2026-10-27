@@ -14,6 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5103736693920003" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -29,6 +30,10 @@
           <button id="mode-toggle-btn" class="primary-btn">User vs User</button>
         </div>
       </header>
+
+      <div class="top-banner-ad-wrap">
+        <div id="top-banner-ad" class="ad-slot-host" aria-label="Advertisement"></div>
+      </div>
 
       <main class="game-layout">
         <aside class="info-panel">
@@ -51,6 +56,8 @@
             <button id="pvp-btn" class="mode-btn active">User vs User</button>
             <button id="pvc-btn" class="mode-btn">User vs Computer</button>
           </div>
+
+          <div id="sidebar-ad" class="ad-slot-host ad-slot-host--sidebar" aria-label="Advertisement"></div>
         </aside>
 
         <section class="board-panel">
@@ -69,8 +76,39 @@
     </div>
 
     <script src="chess.js"></script>
+    <script src="ad-slot.js"></script>
     <script>
+      function initializeAds() {
+        if (!window.renderAdSlot) {
+          return;
+        }
+
+        const bannerAd = document.getElementById('top-banner-ad');
+        if (bannerAd) {
+          window.renderAdSlot(bannerAd, {
+            slotId: '1234567890',
+            format: 'responsive',
+            className: 'ad-slot--banner',
+            label: 'Sponsored',
+            desktopOnly: false
+          });
+        }
+
+        const sidebarAd = document.getElementById('sidebar-ad');
+        if (sidebarAd) {
+          window.renderAdSlot(sidebarAd, {
+            slotId: '2345678901',
+            format: 'sidebar',
+            className: 'ad-slot--sidebar',
+            label: 'Advertisement',
+            mobileSticky: false
+          });
+        }
+      }
+
       window.addEventListener('load', async () => {
+        initializeAds();
+
         try {
           const runtimeSource = await fetch('./script.js').then((response) => response.text());
           eval(runtimeSource);
